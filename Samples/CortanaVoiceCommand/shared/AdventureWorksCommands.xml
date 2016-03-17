@@ -12,7 +12,7 @@
       <Navigate />
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example> When is my trip to Las Vegas?</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> How am I doing on my goals {destination}</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> when is [my] {builtin:AppName} trip to {destination} </ListenFor>
@@ -48,7 +48,7 @@
       <Navigate Target="foo"/>
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example> When is my trip to Las Vegas?</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> when is [my] trip to {destination}</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> when is [my] {builtin:AppName} trip to {destination} </ListenFor>
@@ -84,7 +84,7 @@
       <Navigate Target="foo"/>
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example> When is my trip to Las Vegas?</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> when is [my] trip to {destination}</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> when is [my] {builtin:AppName} trip to {destination} </ListenFor>
@@ -120,7 +120,7 @@
       <Navigate Target="foo"/>
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example> When is my trip to Las Vegas?</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> when is [my] trip to {destination}</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> when is [my] {builtin:AppName} trip to {destination} </ListenFor>
@@ -156,7 +156,7 @@
       <Navigate Target="foo"/>
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example> When is my trip to Las Vegas?</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> when is [my] trip to {destination}</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> when is [my] {builtin:AppName} trip to {destination} </ListenFor>
@@ -192,7 +192,7 @@
       <Navigate Target="foo"/>
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example>Quand a lieu mon voyage à Las Vegas?</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase">quand a lieu [mon] voyage à {destination}</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified">quand a lieu [mon] {builtin:AppName} voyage à {destination}</ListenFor>
@@ -227,7 +227,7 @@
       <Navigate Target="foo"/>
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example>Quando è il mio viaggio a Las Vegas?</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> quando è il [mio] viaggio a {destination}</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> quando è il [mio] viaggio di {builtin:AppName} a {destination}</ListenFor>
@@ -263,7 +263,7 @@
       <Navigate Target="foo"/>
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example>Wann ist meine Reise nach Las Vegas?</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> wann ist [meine] Reise nach {destination}</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> wann ist [meine] {builtin:AppName} Reise nach {destination}</ListenFor>
@@ -299,7 +299,7 @@
       <Navigate Target="foo"/>
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example>¿Cuándo es mi viaje a Las Vegas?</Example>
       <ListenFor RequireAppName="BeforeOrAfterPhrase"> cuando es [mi] viaje a {destination}</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> cuando es [mi] {builtin:AppName} viaje a {destination}</ListenFor>
@@ -335,7 +335,7 @@
       <Navigate Target="foo"/>
     </Command>
 
-    <Command Name="whenIsTripToDestination">
+    <Command Name="goalsForWeek">
       <Example>我的拉斯维加斯之旅的时间？</Example>
       <ListenFor>[我]前往{destination}的旅行是什么时候</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified">显示[我]{builtin:AppName}前往{destination}的旅行是什么时候</ListenFor>

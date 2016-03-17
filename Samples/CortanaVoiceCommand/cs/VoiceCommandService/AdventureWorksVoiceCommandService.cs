@@ -125,7 +125,7 @@ namespace AdventureWorks.VoiceCommands
                     // perform the appropriate command.
                     switch (voiceCommand.CommandName)
                     {
-                        case "whenIsTripToDestination":
+                        case "goalsForWeek":
                             var destination = voiceCommand.Properties["destination"][0];
                             await SendCompletionMessageForDestination(destination);
                             break;
