@@ -25,7 +25,7 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <x:String x:Key="AppName">Adventure Works</x:String>
+        <x:String x:Key="AppName">Delve Analytics</x:String>
     </Page.Resources>
     <!--
         This grid acts as a root panel for the page that defines two rows:

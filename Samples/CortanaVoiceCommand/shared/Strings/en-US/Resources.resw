@@ -145,7 +145,7 @@
     <value>Launching Adventure Works</value>
   </data>
   <data name="LoadingTripToDestination" xml:space="preserve">
-    <value>Looking for trip to {0}</value>
+    <value>Checking your goals for the week</value>
   </data>
   <data name="NoSuchTripToDestination" xml:space="preserve">
     <value>Sorry, you don't have any trips to {0}</value>
