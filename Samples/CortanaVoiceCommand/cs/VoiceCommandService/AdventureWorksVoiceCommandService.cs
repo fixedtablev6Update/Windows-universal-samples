@@ -126,7 +126,7 @@ namespace AdventureWorks.VoiceCommands
                     switch (voiceCommand.CommandName)
                     {
                         case "goalsForWeek":                            
-                            await SendCompletionMessageForDestination();
+                            await SendCompletionMessageForDestination();                            
                             break;
                         case "cancelTripToDestination":
                             var cancelDestination = voiceCommand.Properties["destination"][0];
@@ -355,7 +355,6 @@ namespace AdventureWorks.VoiceCommands
         /// <returns></returns>
         private async Task SendCompletionMessageForDestination()
         {
-            string destination = "London";
             // If this operation is expected to take longer than 0.5 seconds, the task must
             // provide a progress response to Cortana prior to starting the operation, and
             // provide updates at most every 5 seconds.
@@ -363,66 +362,53 @@ namespace AdventureWorks.VoiceCommands
                        cortanaResourceMap.GetValue("Analytics_GoalChecking", cortanaContext).ValueAsString;
                        
             await ShowProgressScreen(Analytics_GoalChecking);
-            Model.TripStore store = new Model.TripStore();
-            await store.LoadTrips();
 
             // Look for the specified trip. The destination *should* be pulled from the grammar we
             // provided, and the subsequently updated phrase list, so it should be a 1:1 match, including case.
             // However, we might have multiple trips to the destination. For now, we just pick the first.
-            IEnumerable<Model.Trip> trips = store.Trips.Where(p => p.Destination == destination);
 
             var userMessage = new VoiceCommandUserMessage();
             var destinationsContentTiles = new List<VoiceCommandContentTile>();
             
             // Set a title message for the page.
             string message = "";
-            if (trips.Count() > 1)
-            {
-                message = cortanaResourceMap.GetValue("PluralUpcomingTrips", cortanaContext).ValueAsString;
-            }
-            else
-            {
-                message = cortanaResourceMap.GetValue("SingularUpcomingTrip", cortanaContext).ValueAsString;
-            }
+
+            message = "Irum - you are working way too hard, it is time for vacation";
+
+
             userMessage.DisplayMessage = message;
             userMessage.SpokenMessage = message;
 
+            string[] cases = new string[] { "email", "meetings", "focus", "afterhours" };
+
             // file in tiles for each destination, to display information about the trips without
             // launching the app.
-            foreach (Model.Trip trip in trips)
+            for(int i= 0; i < cases.Length ; i++)
             {
-                int i = 1;
-                    
+                var caseValue = cases[i];
+                if (caseValue == "email")
+                {
+                    // userMessage.SpokenMessage += "Your email goals are over by 3 hours";
+                }    
+
                 var destinationTile = new VoiceCommandContentTile();
 
                 // To handle UI scaling, Cortana automatically looks up files with FileName.scale-<n>.ext formats based on the requested filename.
                 // See the VoiceCommandService\Images folder for an example.
-                destinationTile.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
-                destinationTile.Image = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AdventureWorks.VoiceCommands/Images/GreyTile.png"));
+                destinationTile.ContentTileType = VoiceCommandContentTileType.TitleWith280x140IconAndText;
+                destinationTile.Image = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AdventureWorks.VoiceCommands/Images/" + caseValue + ".png"));
 
-                destinationTile.AppLaunchArgument = trip.Destination;
-                destinationTile.Title = trip.Destination;
-                if (trip.StartDate != null)
-                {
-                    destinationTile.TextLine1 = trip.StartDate.Value.ToString(dateFormatInfo.LongDatePattern);
-                }
-                else
-                {
-                    destinationTile.TextLine1 = trip.Destination + " " + i;
-                }
-
-                destinationsContentTiles.Add(destinationTile);
-                i++;
+                destinationTile.AppLaunchArgument = caseValue;
+                destinationTile.Title = caseValue;                
+                destinationsContentTiles.Add(destinationTile);                
             }
-            
+
+            /*var response = VoiceCommandResponse.CreateResponse(userMessage, destinationsContentTiles);
+            await voiceServiceConnection.ReportProgressAsync(response);
+
+            await ShowProgressScreen("hello");*/
 
             var response = VoiceCommandResponse.CreateResponse(userMessage, destinationsContentTiles);
-
-            if (trips.Count() > 0)
-            {
-                response.AppLaunchArgument = destination;
-            }
-
             await voiceServiceConnection.ReportSuccessAsync(response);
         }
 

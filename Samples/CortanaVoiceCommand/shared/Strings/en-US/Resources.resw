@@ -159,4 +159,7 @@
   <data name="SingularUpcomingTrip" xml:space="preserve">
     <value>Here's your upcoming trip.</value>
   </data>
+  <data name="overallGoalSummary" xml:space="preserve">
+    <value>Your goals</value>
+  </data>
 </root>
