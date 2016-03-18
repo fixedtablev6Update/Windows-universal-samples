@@ -373,13 +373,13 @@ namespace AdventureWorks.VoiceCommands
             // Set a title message for the page.
             string message = "";
 
-            message = "Irum - you are working way too hard, it is time for vacation";
+            message = "Irum, you have too many meetings this week";
 
 
             userMessage.DisplayMessage = message;
-            userMessage.SpokenMessage = message;
+            userMessage.SpokenMessage = message + " and not enough focus hours";
 
-            string[] cases = new string[] { "email", "meetings", "focus", "afterhours" };
+            string[] cases = new string[] {"meetings", "focus" };
 
             // file in tiles for each destination, to display information about the trips without
             // launching the app.
@@ -395,11 +395,23 @@ namespace AdventureWorks.VoiceCommands
 
                 // To handle UI scaling, Cortana automatically looks up files with FileName.scale-<n>.ext formats based on the requested filename.
                 // See the VoiceCommandService\Images folder for an example.
-                destinationTile.ContentTileType = VoiceCommandContentTileType.TitleWith280x140IconAndText;
+                destinationTile.ContentTileType = VoiceCommandContentTileType.TitleWith68x92IconAndText;
                 destinationTile.Image = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AdventureWorks.VoiceCommands/Images/" + caseValue + ".png"));
 
-                destinationTile.AppLaunchArgument = caseValue;
-                destinationTile.Title = caseValue;                
+                if (i == 0)
+                {
+                    destinationTile.TextLine1 = "You have too many meetings scheduled and will";
+                    destinationTile.TextLine2 = "not meet your goal of less than 10 hours of meetings per week.";
+                    //userMessage.SpokenMessage += "You are not meeting your goals of < 10 hours of meetings per week";
+                }
+                else
+                {
+                    destinationTile.TextLine1 = "You will not meet your focus time goal of 10 hours per week";
+                    //userMessage.SpokenMessage += "You will not meet your focus time goal of 10 hours per week";
+                }
+
+
+                destinationTile.AppLaunchArgument = caseValue;                              
                 destinationsContentTiles.Add(destinationTile);                
             }
 
