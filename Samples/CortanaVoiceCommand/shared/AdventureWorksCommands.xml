@@ -14,7 +14,7 @@
 
     <Command Name="goalsForWeek">
       <Example> When is my trip to Las Vegas?</Example>
-      <ListenFor RequireAppName="BeforeOrAfterPhrase"> How am I doing on my goals {destination}</ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> How am I doing on my goals</ListenFor>
       <ListenFor RequireAppName="ExplicitlySpecified"> when is [my] {builtin:AppName} trip to {destination} </ListenFor>
       <Feedback> Checking your goals for the week</Feedback>
       <VoiceCommandService Target="AdventureWorksVoiceCommandService"/>

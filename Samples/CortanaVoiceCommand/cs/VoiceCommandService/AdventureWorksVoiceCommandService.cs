@@ -125,9 +125,8 @@ namespace AdventureWorks.VoiceCommands
                     // perform the appropriate command.
                     switch (voiceCommand.CommandName)
                     {
-                        case "goalsForWeek":
-                            var destination = voiceCommand.Properties["destination"][0];
-                            await SendCompletionMessageForDestination(destination);
+                        case "goalsForWeek":                            
+                            await SendCompletionMessageForDestination();
                             break;
                         case "cancelTripToDestination":
                             var cancelDestination = voiceCommand.Properties["destination"][0];
@@ -354,14 +353,15 @@ namespace AdventureWorks.VoiceCommands
         /// </summary>
         /// <param name="destination">The destination, expected to be in the phrase list.</param>
         /// <returns></returns>
-        private async Task SendCompletionMessageForDestination(string destination)
+        private async Task SendCompletionMessageForDestination()
         {
+            string destination = "London";
             // If this operation is expected to take longer than 0.5 seconds, the task must
             // provide a progress response to Cortana prior to starting the operation, and
             // provide updates at most every 5 seconds.
-            string Analytics_GoalChecking = string.Format(
-                       cortanaResourceMap.GetValue("Analytics_GoalChecking", cortanaContext).ValueAsString,
-                       destination);
+            string Analytics_GoalChecking =
+                       cortanaResourceMap.GetValue("Analytics_GoalChecking", cortanaContext).ValueAsString;
+                       
             await ShowProgressScreen(Analytics_GoalChecking);
             Model.TripStore store = new Model.TripStore();
             await store.LoadTrips();
@@ -373,61 +373,48 @@ namespace AdventureWorks.VoiceCommands
 
             var userMessage = new VoiceCommandUserMessage();
             var destinationsContentTiles = new List<VoiceCommandContentTile>();
-            if (trips.Count() == 0)
+            
+            // Set a title message for the page.
+            string message = "";
+            if (trips.Count() > 1)
             {
-                // In this scenario, perhaps someone has modified data on your service outside of your 
-                // control. If you're accessing a remote service, having a background task that
-                // periodically refreshes the phrase list so it's likely to be in sync is ideal.
-                // This is unlikely to occur for this sample app, however.
-                string foundNoTripToDestination = string.Format(
-                       cortanaResourceMap.GetValue("FoundNoTripToDestination", cortanaContext).ValueAsString,
-                       destination);
-                userMessage.DisplayMessage = foundNoTripToDestination;
-                userMessage.SpokenMessage = foundNoTripToDestination;
+                message = cortanaResourceMap.GetValue("PluralUpcomingTrips", cortanaContext).ValueAsString;
             }
             else
             {
-                // Set a title message for the page.
-                string message = "";
-                if (trips.Count() > 1)
+                message = cortanaResourceMap.GetValue("SingularUpcomingTrip", cortanaContext).ValueAsString;
+            }
+            userMessage.DisplayMessage = message;
+            userMessage.SpokenMessage = message;
+
+            // file in tiles for each destination, to display information about the trips without
+            // launching the app.
+            foreach (Model.Trip trip in trips)
+            {
+                int i = 1;
+                    
+                var destinationTile = new VoiceCommandContentTile();
+
+                // To handle UI scaling, Cortana automatically looks up files with FileName.scale-<n>.ext formats based on the requested filename.
+                // See the VoiceCommandService\Images folder for an example.
+                destinationTile.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
+                destinationTile.Image = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AdventureWorks.VoiceCommands/Images/GreyTile.png"));
+
+                destinationTile.AppLaunchArgument = trip.Destination;
+                destinationTile.Title = trip.Destination;
+                if (trip.StartDate != null)
                 {
-                    message = cortanaResourceMap.GetValue("PluralUpcomingTrips", cortanaContext).ValueAsString;
+                    destinationTile.TextLine1 = trip.StartDate.Value.ToString(dateFormatInfo.LongDatePattern);
                 }
                 else
                 {
-                    message = cortanaResourceMap.GetValue("SingularUpcomingTrip", cortanaContext).ValueAsString;
+                    destinationTile.TextLine1 = trip.Destination + " " + i;
                 }
-                userMessage.DisplayMessage = message;
-                userMessage.SpokenMessage = message;
 
-                // file in tiles for each destination, to display information about the trips without
-                // launching the app.
-                foreach (Model.Trip trip in trips)
-                {
-                    int i = 1;
-                    
-                    var destinationTile = new VoiceCommandContentTile();
-
-                    // To handle UI scaling, Cortana automatically looks up files with FileName.scale-<n>.ext formats based on the requested filename.
-                    // See the VoiceCommandService\Images folder for an example.
-                    destinationTile.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
-                    destinationTile.Image = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AdventureWorks.VoiceCommands/Images/GreyTile.png"));
-
-                    destinationTile.AppLaunchArgument = trip.Destination;
-                    destinationTile.Title = trip.Destination;
-                    if (trip.StartDate != null)
-                    {
-                        destinationTile.TextLine1 = trip.StartDate.Value.ToString(dateFormatInfo.LongDatePattern);
-                    }
-                    else
-                    {
-                        destinationTile.TextLine1 = trip.Destination + " " + i;
-                    }
-
-                    destinationsContentTiles.Add(destinationTile);
-                    i++;
-                }
+                destinationsContentTiles.Add(destinationTile);
+                i++;
             }
+            
 
             var response = VoiceCommandResponse.CreateResponse(userMessage, destinationsContentTiles);
 
