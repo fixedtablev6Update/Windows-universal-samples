@@ -359,10 +359,10 @@ namespace AdventureWorks.VoiceCommands
             // If this operation is expected to take longer than 0.5 seconds, the task must
             // provide a progress response to Cortana prior to starting the operation, and
             // provide updates at most every 5 seconds.
-            string loadingTripToDestination = string.Format(
-                       cortanaResourceMap.GetValue("LoadingTripToDestination", cortanaContext).ValueAsString,
+            string Analytics_GoalChecking = string.Format(
+                       cortanaResourceMap.GetValue("Analytics_GoalChecking", cortanaContext).ValueAsString,
                        destination);
-            await ShowProgressScreen(loadingTripToDestination);
+            await ShowProgressScreen(Analytics_GoalChecking);
             Model.TripStore store = new Model.TripStore();
             await store.LoadTrips();
 

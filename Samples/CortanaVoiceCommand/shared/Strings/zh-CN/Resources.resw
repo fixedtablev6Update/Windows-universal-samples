@@ -144,7 +144,7 @@
   <data name="LaunchingAdventureWorks" xml:space="preserve">
     <value>启动Adventure Works应用</value>
   </data>
-  <data name="LoadingTripToDestination" xml:space="preserve">
+  <data name="Analytics_GoalChecking" xml:space="preserve">
     <value>正在查询前往{0}的行程</value>
   </data>
   <data name="NoSuchTripToDestination" xml:space="preserve">

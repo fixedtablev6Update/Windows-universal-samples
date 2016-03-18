@@ -144,7 +144,7 @@
   <data name="LaunchingAdventureWorks" xml:space="preserve">
     <value>Lancement Adventure Works</value>
   </data>
-  <data name="LoadingTripToDestination" xml:space="preserve">
+  <data name="Analytics_GoalChecking" xml:space="preserve">
     <value>Recherche de voyage vers {0}</value>
   </data>
   <data name="NoSuchTripToDestination" xml:space="preserve">
