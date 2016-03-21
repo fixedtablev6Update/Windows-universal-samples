@@ -170,6 +170,7 @@
     <Content Include="..\..\..\..\SharedContent\media\windows-sdk.png">
       <Link>Assets\windows-sdk.png</Link>
     </Content>
+    <Content Include="Assets\main.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdventureWorks.Shared\AdventureWorks.Model.csproj">

@@ -32,7 +32,11 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="-682,-549,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="199*"/>
+            <ColumnDefinition Width="161*"/>
+        </Grid.ColumnDefinitions>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
@@ -46,34 +50,13 @@
 
         <!-- Page title -->
         <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Style="{StaticResource ScenarioHeaderTextStyle}"
-                        IsHitTestVisible="false" VerticalAlignment="Bottom" Margin="10,12,10,12"/>
+                        IsHitTestVisible="false" VerticalAlignment="Bottom" Margin="10,0,10,11" Grid.ColumnSpan="2"/>
 
-        <StackPanel Grid.Row="1">
-            <ListBox x:Name="tripListBox" 
-                     ItemsSource="{Binding Trips}" 
-                     SelectedItem="{Binding Path=SelectedTrip, Mode=TwoWay}" 
-                     Height="250" 
-                     Width="Auto"
-                     MaxWidth="450"
-                     Margin="30,0,30,0"
-                     HorizontalAlignment="Left"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                     SelectionChanged="tripListBox_SelectionChanged">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Destination}" FontSize="18.667" FontWeight="Bold" />
-                            <TextBlock Text="{Binding Description}" Margin="20,0,0,0" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Command="{Binding AddTripCommand}" 
-                    Content="Add Trip" 
-                    Margin="30,10,0,0"/>
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,68" Grid.RowSpan="2">
+            <Image x:Name="image" Source="ms-appx:///Assets/main.png" Stretch="Fill" Height="1077"/>
         </StackPanel>
 
-        <StackPanel x:Name="FooterPanel" Orientation="Vertical" RelativePanel.AlignBottomWithPanel="True" Grid.Row="2">
+        <StackPanel x:Name="FooterPanel" Orientation="Vertical" RelativePanel.AlignBottomWithPanel="True" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,20,0,0">
             <Image Source="Assets/microsoft-sdk.png" AutomationProperties.Name="Microsoft Logo" Stretch="None" HorizontalAlignment="Left" Margin="10,0,0,0"/>
             <TextBlock x:Name="Copyright" Text="&#xA9; Microsoft Corporation. All rights reserved." Style="{StaticResource CopyrightTextStyle}"
                                    Margin="10,10,0,0"

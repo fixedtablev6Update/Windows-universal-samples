@@ -308,7 +308,7 @@ namespace AdventureWorks.VoiceCommands
 
                 // To handle UI scaling, Cortana automatically looks up files with FileName.scale-<n>.ext formats based on the requested filename.
                 // See the VoiceCommandService\Images folder for an example.
-                destinationTile.ContentTileType = VoiceCommandContentTileType.TitleWith68x68IconAndText;
+                destinationTile.ContentTileType = VoiceCommandContentTileType.TitleWith280x140Icon;
                 destinationTile.Image = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AdventureWorks.VoiceCommands/Images/GreyTile.png"));
                 
                 // The AppContext can be any arbitrary object, and will be maintained for the
@@ -361,7 +361,7 @@ namespace AdventureWorks.VoiceCommands
             string Analytics_GoalChecking =
                        cortanaResourceMap.GetValue("Analytics_GoalChecking", cortanaContext).ValueAsString;
                        
-            await ShowProgressScreen(Analytics_GoalChecking);
+            await ShowProgressScreen("Checking how you have been spending your time this week");
 
             // Look for the specified trip. The destination *should* be pulled from the grammar we
             // provided, and the subsequently updated phrase list, so it should be a 1:1 match, including case.
